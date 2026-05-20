@@ -1,69 +1,25 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sample/main.dart';
 
 void main() {
-  testWidgets('main menu shows the three mini apps', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('study app top screen is shown', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('アプリメニュー'), findsOneWidget);
-    expect(find.text('運勢占いアプリ'), findsOneWidget);
-    expect(find.text('お絵かきアプリ'), findsOneWidget);
-    expect(find.text('3秒チャレンジゲーム'), findsOneWidget);
+    expect(find.text('勉強記録アプリ'), findsOneWidget);
+    expect(find.text('今日の勉強を記録するアプリです'), findsOneWidget);
+    expect(find.text('入力する内容'), findsOneWidget);
+    expect(find.text('科目'), findsOneWidget);
+    expect(find.text('勉強時間'), findsOneWidget);
+    expect(find.text('メモ'), findsOneWidget);
+    expect(find.text('記録一覧'), findsOneWidget);
   });
 
-  testWidgets('fortune app navigates and shows one fortune result', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('sample study record is shown', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.text('運勢占いアプリ'));
-    await tester.pumpAndSettle();
-    expect(find.text('運勢占い'), findsOneWidget);
-
-    await tester.tap(find.text('占う！'));
-    await tester.pumpAndSettle();
-
-    final fortuneResults = ['大吉', '中吉', '小吉', '凶'];
-    final hasResult = fortuneResults.any(
-      (result) => find.text(result).evaluate().isNotEmpty,
-    );
-    expect(hasResult, isTrue);
-  });
-
-  testWidgets('paint app opens and clear action is available', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(const MyApp());
-
-    await tester.tap(find.text('お絵かきアプリ'));
-    await tester.pumpAndSettle();
-
-    expect(find.text('お絵かきアプリ'), findsOneWidget);
-    expect(find.byIcon(Icons.delete), findsOneWidget);
-    await tester.tap(find.byIcon(Icons.delete));
-    await tester.pump();
-  });
-
-  testWidgets('timer app starts, stops, and shows result screen', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(const MyApp());
-
-    await tester.tap(find.text('3秒チャレンジゲーム'));
-    await tester.pumpAndSettle();
-    expect(find.text('3秒チャレンジ'), findsOneWidget);
-
-    await tester.tap(find.text('スタート'));
-    await tester.pump(const Duration(milliseconds: 50));
-    expect(find.text('ストップ'), findsOneWidget);
-
-    await tester.tap(find.text('ストップ'));
-    await tester.pumpAndSettle();
-    expect(find.text('結果'), findsOneWidget);
-    expect(find.textContaining('あなたの記録:'), findsOneWidget);
+    expect(find.text('科目: 数学'), findsOneWidget);
+    expect(find.text('勉強時間: 60分'), findsOneWidget);
+    expect(find.text('メモ: 問題集を進めた'), findsOneWidget);
   });
 }
