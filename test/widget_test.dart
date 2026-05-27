@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sample/main.dart';
@@ -12,7 +13,22 @@ void main() {
     expect(find.text('科目'), findsOneWidget);
     expect(find.text('勉強時間'), findsOneWidget);
     expect(find.text('メモ'), findsOneWidget);
+    expect(find.text('記録する'), findsOneWidget);
     expect(find.text('記録一覧'), findsOneWidget);
+  });
+
+  testWidgets('study form can receive text', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    expect(find.byType(EditableText), findsNWidgets(3));
+
+    await tester.enterText(find.byType(EditableText).at(0), '英語');
+    await tester.enterText(find.byType(EditableText).at(1), '30');
+    await tester.enterText(find.byType(EditableText).at(2), '単語を覚えた');
+
+    expect(find.text('英語'), findsOneWidget);
+    expect(find.text('30'), findsOneWidget);
+    expect(find.text('単語を覚えた'), findsOneWidget);
   });
 
   testWidgets('sample study record is shown', (WidgetTester tester) async {

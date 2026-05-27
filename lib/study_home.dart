@@ -19,9 +19,19 @@ class StudyHome extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            _infoBox('科目', '例: 数学'),
-            _infoBox('勉強時間', '例: 60分'),
-            _infoBox('メモ', '例: 問題集を進めた'),
+            _inputField('科目', '例: 数学'),
+            const SizedBox(height: 12),
+            _inputField('勉強時間', '例: 60分', isNumber: true),
+            const SizedBox(height: 12),
+            _inputField('メモ', '例: 問題集を進めた'),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text('記録する'),
+              ),
+            ),
             const SizedBox(height: 28),
             const Text(
               '記録一覧',
@@ -49,9 +59,14 @@ class StudyHome extends StatelessWidget {
     );
   }
 
-  Widget _infoBox(String title, String example) {
-    return Card(
-      child: ListTile(title: Text(title), subtitle: Text(example)),
+  Widget _inputField(String label, String hint, {bool isNumber = false}) {
+    return TextField(
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        border: const OutlineInputBorder(),
+      ),
     );
   }
 }
