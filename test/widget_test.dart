@@ -31,6 +31,22 @@ void main() {
     expect(find.text('単語を覚えた'), findsOneWidget);
   });
 
+  testWidgets('entered study record is added to the list', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.enterText(find.byType(EditableText).at(0), '英語');
+    await tester.enterText(find.byType(EditableText).at(1), '30');
+    await tester.enterText(find.byType(EditableText).at(2), '単語を覚えた');
+    await tester.tap(find.text('記録する'));
+    await tester.pump();
+
+    expect(find.text('科目: 英語'), findsOneWidget);
+    expect(find.text('勉強時間: 30分'), findsOneWidget);
+    expect(find.text('メモ: 単語を覚えた'), findsOneWidget);
+  });
+
   testWidgets('sample study record is shown', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
