@@ -22,6 +22,12 @@ class _StudyHomeState extends State<StudyHome> {
     final memo = memoController.text.trim();
 
     if (subject.isEmpty || studyTime.isEmpty || memo.isEmpty) {
+      showMessage('入力していないところがあります');
+      return;
+    }
+
+    if (int.tryParse(studyTime) == null) {
+      showMessage('勉強時間は数字で入力してください');
       return;
     }
 
@@ -34,6 +40,12 @@ class _StudyHomeState extends State<StudyHome> {
     subjectController.clear();
     timeController.clear();
     memoController.clear();
+  }
+
+  void showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
