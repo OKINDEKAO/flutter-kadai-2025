@@ -48,6 +48,12 @@ class _StudyHomeState extends State<StudyHome> {
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
+  void deleteRecord(int index) {
+    setState(() {
+      records.removeAt(index);
+    });
+  }
+
   @override
   void dispose() {
     subjectController.dispose();
@@ -91,7 +97,10 @@ class _StudyHomeState extends State<StudyHome> {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            ...records.map((record) => _recordCard(record)),
+            ...List.generate(
+              records.length,
+              (index) => _recordCard(records[index], index),
+            ),
           ],
         ),
       ),
@@ -115,7 +124,7 @@ class _StudyHomeState extends State<StudyHome> {
     );
   }
 
-  Widget _recordCard(StudyRecord record) {
+  Widget _recordCard(StudyRecord record, int index) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -127,6 +136,14 @@ class _StudyHomeState extends State<StudyHome> {
             Text('勉強時間: ${record.studyTime}分'),
             const SizedBox(height: 8),
             Text('メモ: ${record.memo}'),
+            const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () => deleteRecord(index),
+                child: const Text('削除'),
+              ),
+            ),
           ],
         ),
       ),

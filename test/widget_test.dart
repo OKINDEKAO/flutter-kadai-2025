@@ -60,6 +60,19 @@ void main() {
     expect(find.text('勉強時間: 三十分分'), findsNothing);
   });
 
+  testWidgets('study record can be deleted', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    expect(find.text('科目: 数学'), findsOneWidget);
+
+    await tester.ensureVisible(find.text('削除'));
+    await tester.pump();
+    await tester.tap(find.text('削除'));
+    await tester.pump();
+
+    expect(find.text('科目: 数学'), findsNothing);
+  });
+
   testWidgets('sample study record is shown', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
