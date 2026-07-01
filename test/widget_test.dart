@@ -63,6 +63,22 @@ void main() {
     expect(find.text('合計勉強時間: 90分'), findsOneWidget);
   });
 
+  testWidgets('record count changes when a record is added', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    expect(find.text('記録数: 1件'), findsOneWidget);
+
+    await tester.enterText(find.byType(EditableText).at(0), '英語');
+    await tester.enterText(find.byType(EditableText).at(1), '30');
+    await tester.enterText(find.byType(EditableText).at(2), '単語を覚えた');
+    await tester.tap(find.text('記録する'));
+    await tester.pump();
+
+    expect(find.text('記録数: 2件'), findsOneWidget);
+  });
+
   testWidgets('study time must be number', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 

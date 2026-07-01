@@ -108,6 +108,8 @@ class _StudyHomeState extends State<StudyHome> {
             ),
             const SizedBox(height: 8),
             Text('合計勉強時間: $totalStudyTime分'),
+            const SizedBox(height: 4),
+            Text('記録数: ${records.length}件'),
             const SizedBox(height: 12),
             ...List.generate(
               records.length,
