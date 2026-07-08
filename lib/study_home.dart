@@ -111,10 +111,13 @@ class _StudyHomeState extends State<StudyHome> {
             const SizedBox(height: 4),
             Text('記録数: ${records.length}件'),
             const SizedBox(height: 12),
-            ...List.generate(
-              records.length,
-              (index) => _recordCard(records[index], index),
-            ),
+            if (records.isEmpty)
+              const Text('まだ記録がありません')
+            else
+              ...List.generate(
+                records.length,
+                (index) => _recordCard(records[index], index),
+              ),
           ],
         ),
       ),

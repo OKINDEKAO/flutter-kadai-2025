@@ -105,6 +105,20 @@ void main() {
     expect(find.text('科目: 数学'), findsNothing);
   });
 
+  testWidgets('message is shown when record list is empty', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.ensureVisible(find.text('削除'));
+    await tester.pump();
+    await tester.tap(find.text('削除'));
+    await tester.pump();
+
+    expect(find.text('まだ記録がありません'), findsOneWidget);
+    expect(find.text('記録数: 0件'), findsOneWidget);
+  });
+
   testWidgets('sample study record is shown', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
